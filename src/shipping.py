@@ -1,5 +1,4 @@
-"""Shipping stage — ships finished bicycles from the South Distribution
-Center.
+"""Shipping stage — ships finished bicycles from the South Distribution Center.
 
 Marks the customer order as shipped in OrderDB and posts the freight cost of
 moving the bicycle from the South Distribution Center to the customer."""
