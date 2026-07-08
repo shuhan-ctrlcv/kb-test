@@ -1,0 +1,70 @@
+# Gold Q&A set for the PedalWorks golden corpus.
+#
+# Spans four kinds of questions:
+#   - single-fact lookups (one table row / one docstring fact)
+#   - cross-file joins (a doc section + its matching code module)
+#   - hub questions (Scheduler fan-out, Ledger fan-in)
+#   - provenance questions (which file defines/states a given fact)
+#
+# expected_sources are repo-relative paths under kb-test/ that a correct
+# retrieval should surface for that question.
+
+- id: q01
+  question: "Which supplier provides brakes, and what is their lead time?"
+  answer: "BrakeSafe GmbH, 10 days"
+  expected_sources: [docs/procurement.md]
+
+- id: q02
+  question: "What does the Scheduler trigger when PartsDB stock is low?"
+  answer: "It triggers Procurement to order parts, then releases work to Assembly."
+  expected_sources: [src/scheduler.py, README.md]
+
+- id: q03
+  question: "Which four parts make up a City Cruiser?"
+  answer: "Frame, Wheelset, Drivetrain, and Brake Set."
+  expected_sources: [docs/assembly.md, src/assembly.py]
+
+- id: q04
+  question: "Which stages post a cost to the Ledger, and what kind?"
+  answer: "Procurement (purchase), Assembly (labor), Quality (scrap), Shipping (freight)."
+  expected_sources: [docs/finance.md]
+
+- id: q05
+  question: "Where are finished bicycles shipped from?"
+  answer: "The South Distribution Center."
+  expected_sources: [docs/shipping.md, src/shipping.py]
+
+- id: q06
+  question: "What is the unit cost of the Frame, and which supplier provides it?"
+  answer: "$120, from FrameForge Ltd."
+  expected_sources: [docs/procurement.md, src/scheduler.py]
+
+- id: q07
+  question: "What is the lead time for the Drivetrain, and who supplies it?"
+  answer: "10 days, from GearWorks Inc."
+  expected_sources: [docs/procurement.md]
+
+- id: q08
+  question: "How many stages post a cost to the Ledger, and which ones (hub question — Ledger fan-in)?"
+  answer: "Four: Procurement, Assembly, Quality, and Shipping."
+  expected_sources: [docs/finance.md, README.md]
+
+- id: q09
+  question: "What does the Scheduler do that makes it PedalWorks' fan-out hub?"
+  answer: "It reads PartsDB and OrderDB, triggers Procurement on low stock, and releases work orders to Assembly."
+  expected_sources: [README.md, src/scheduler.py]
+
+- id: q10
+  question: "Which file defines the LedgerEntry dataclass, and what are its three fields?"
+  answer: "src/models.py; fields are stage, kind, and amount."
+  expected_sources: [src/models.py, docs/data-model.md]
+
+- id: q11
+  question: "Which module implements the PartsDB, OrderDB, and LedgerDB fake data stores described throughout the docs?"
+  answer: "src/database.py."
+  expected_sources: [src/database.py, docs/data-model.md]
+
+- id: q12
+  question: "Which warehouse receives parts from suppliers before Inventory tracks them, and which code module implements that stock tracking?"
+  answer: "North Intake Warehouse; stock tracking is implemented in src/inventory.py, which reads PartsDB."
+  expected_sources: [docs/inventory.md, src/inventory.py]

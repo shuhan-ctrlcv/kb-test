@@ -1,0 +1,26 @@
+must_have_entities:
+  suppliers: [FrameForge Ltd, RollRight Co, GearWorks Inc, BrakeSafe GmbH]
+  parts: [Frame, Wheelset, Drivetrain, Brake Set]
+  warehouses: [North Intake Warehouse, Portland Assembly Floor, South Distribution Center]
+  systems: [PartsDB, OrderDB, LedgerDB]
+  hubs: [Scheduler, Ledger]
+  stages: [Procurement, Inventory, Assembly, Quality, Shipping, Finance]
+
+must_have_edges:
+  - {from: FrameForge Ltd, to: Frame, sense: supplies}
+  - {from: RollRight Co, to: Wheelset, sense: supplies}
+  - {from: GearWorks Inc, to: Drivetrain, sense: supplies}
+  - {from: BrakeSafe GmbH, to: Brake Set, sense: supplies}
+  - {from: Scheduler, to: Procurement, sense: triggers}
+  - {from: Scheduler, to: Assembly, sense: releases_to}
+  - {from: Scheduler, to: PartsDB, sense: reads}
+  - {from: Scheduler, to: OrderDB, sense: reads}
+  - {from: Procurement, to: Ledger, sense: posts_cost_to}
+  - {from: Assembly, to: Ledger, sense: posts_cost_to}
+  - {from: Quality, to: Ledger, sense: posts_cost_to}
+  - {from: Shipping, to: Ledger, sense: posts_cost_to}
+  - {from: Assembly, to: City Cruiser, sense: produces}
+
+hub_expectations:
+  - {entity: Scheduler, min_out_degree: 3}
+  - {entity: Ledger, min_in_degree: 4}
