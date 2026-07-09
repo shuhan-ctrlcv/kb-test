@@ -32,13 +32,16 @@ from pptx.util import Inches
 ROOT = Path(__file__).resolve().parent.parent
 
 # Supplier facts, consistent with docs/procurement.md and docs/trailblazer.md.
+# catalog_code is PDF-table-exclusive: it is not stated anywhere in docs/*.md,
+# so it is the fact fp-pdf-table-rank targets (unlike lead time/unit cost,
+# which the prose docs also state, just split across two files).
 PARTS = [
-    # part, supplier, lead_time_days, unit_cost
-    ("Frame", "FrameForge Ltd", 14, 120),
-    ("Wheelset", "RollRight Co", 7, 85),
-    ("Drivetrain", "GearWorks Inc", 10, 95),
-    ("Brake Set", "BrakeSafe GmbH", 10, 40),
-    ("Suspension Fork", "ForkFactory Co", 12, 150),
+    # part, supplier, lead_time_days, unit_cost, catalog_code
+    ("Frame", "FrameForge Ltd", 14, 120, "SKU-2093"),
+    ("Wheelset", "RollRight Co", 7, 85, "SKU-1042"),
+    ("Drivetrain", "GearWorks Inc", 10, 95, "SKU-3351"),
+    ("Brake Set", "BrakeSafe GmbH", 10, 40, "SKU-1587"),
+    ("Suspension Fork", "ForkFactory Co", 12, 150, "SKU-4478"),
 ]
 
 # The one fact that exists ONLY inside the PDF's embedded image, never in its
@@ -81,9 +84,9 @@ def build_pdf(path: Path) -> None:
     line("Prices and lead times for the five purchased parts behind the", size=11)
     line("City Cruiser and Trail Blazer, received at the North Intake Warehouse.", size=11, dy=26)
 
-    line("Part             Supplier              Lead Time    Unit Cost", size=11, dy=18)
-    for part, supplier, lead, cost in PARTS:
-        line(f"{part:<17}{supplier:<22}{lead} days       ${cost}", size=11)
+    line("Part             Supplier              Lead Time    Unit Cost    Catalog Code", size=11, dy=18)
+    for part, supplier, lead, cost, code in PARTS:
+        line(f"{part:<17}{supplier:<22}{lead} days       ${cost:<8}  {code}", size=11)
     y += 20
     line("See the bay map below for warehouse storage assignment.", size=11, dy=24)
 
@@ -179,7 +182,7 @@ def build_pptx(path: Path) -> None:
     left, top, width, height = Inches(0.5), Inches(1.5), Inches(9), Inches(3)
     table = slide.shapes.add_table(rows, cols, left, top, width, height).table
     table.cell(0, 0).text, table.cell(0, 1).text, table.cell(0, 2).text = "Part", "Supplier", "Lead Time"
-    for r, (part, supplier, lead, _cost) in enumerate(PARTS, start=1):
+    for r, (part, supplier, lead, _cost, _code) in enumerate(PARTS, start=1):
         table.cell(r, 0).text = part
         table.cell(r, 1).text = supplier
         table.cell(r, 2).text = f"{lead} days"

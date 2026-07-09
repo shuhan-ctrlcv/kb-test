@@ -69,4 +69,4 @@ The diagram below traces one unit of work through the whole factory, from raw su
 
 - `src/` — ten runnable Python modules (`models.py`, `database.py`, `finance.py`, `procurement.py`, `inventory.py`, `assembly.py`, `quality.py`, `shipping.py`, `trailblazer.py`, `scheduler.py`), one per stage (plus the Trail Blazer variant) and the shared data model and fake databases. Running `python scheduler.py` executes one full factory cycle end to end.
 - `docs/` — one markdown file per business stage (`procurement.md`, `inventory.md`, `assembly.md`, `quality.md`, `shipping.md`, `finance.md`), the `trailblazer.md` product variant, plus `data-model.md`, describing the same factory in prose.
-- `eval/` — hand-written eval artifacts (`expected_structure.yaml`, `gold_qa.yaml`) used to check a later, automated extraction run against this corpus. No extraction happens in this repo.
+- Eval artifacts (`expected_structure.yaml`, `gold_qa.json`) used to check a later, automated extraction run against this corpus live in the data root, not in this repo. No extraction happens in this repo.
