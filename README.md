@@ -4,7 +4,7 @@
 
 ## What PedalWorks does
 
-PedalWorks builds one bicycle model, the **City Cruiser**, from four purchased parts: a Frame, a Wheelset, a Drivetrain, and a Brake Set. Each part comes from exactly one outside supplier. Parts arrive at a warehouse, get tracked in inventory, get assembled into a finished bicycle, pass a quality check, and ship out to the customer. Every stage of that journey records what it cost, and all of those costs land in one shared ledger.
+PedalWorks builds two bicycle models. The **City Cruiser** is built from four purchased parts: a Frame, a Wheelset, a Drivetrain, and a Brake Set. The **Trail Blazer** (see `docs/trailblazer.md`) reuses the Frame and Wheelset and adds a fifth purchased part, the Suspension Fork. Each part comes from exactly one outside supplier. Parts arrive at a warehouse, get tracked in inventory, get assembled into a finished bicycle, pass a quality check, and ship out to the customer. Every stage of that journey records what it cost, and all of those costs land in one shared ledger.
 
 The factory is organized around two hubs:
 - **Scheduler** — the fan-out hub. It reads stock and order data, decides when more parts need ordering, and releases assembly work.
@@ -21,7 +21,7 @@ The diagram below traces one unit of work through the whole factory, from raw su
 
 ```
                      Suppliers
-   (FrameForge Ltd, RollRight Co, GearWorks Inc, BrakeSafe GmbH)
+   (FrameForge Ltd, RollRight Co, GearWorks Inc, BrakeSafe GmbH, ForkFactory Co)
                          |
                          v
           +-----------------------------+
@@ -67,6 +67,6 @@ The diagram below traces one unit of work through the whole factory, from raw su
 
 ## Repo layout
 
-- `src/` — nine runnable Python modules (`models.py`, `database.py`, `finance.py`, `procurement.py`, `inventory.py`, `assembly.py`, `quality.py`, `shipping.py`, `scheduler.py`), one per stage plus the shared data model and fake databases. Running `python scheduler.py` executes one full factory cycle end to end.
-- `docs/` — one markdown file per business stage (`procurement.md`, `inventory.md`, `assembly.md`, `quality.md`, `shipping.md`, `finance.md`) plus `data-model.md`, describing the same factory in prose.
+- `src/` — ten runnable Python modules (`models.py`, `database.py`, `finance.py`, `procurement.py`, `inventory.py`, `assembly.py`, `quality.py`, `shipping.py`, `trailblazer.py`, `scheduler.py`), one per stage (plus the Trail Blazer variant) and the shared data model and fake databases. Running `python scheduler.py` executes one full factory cycle end to end.
+- `docs/` — one markdown file per business stage (`procurement.md`, `inventory.md`, `assembly.md`, `quality.md`, `shipping.md`, `finance.md`), the `trailblazer.md` product variant, plus `data-model.md`, describing the same factory in prose.
 - `eval/` — hand-written eval artifacts (`expected_structure.yaml`, `gold_qa.yaml`) used to check a later, automated extraction run against this corpus. No extraction happens in this repo.

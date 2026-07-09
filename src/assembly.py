@@ -11,6 +11,7 @@ from models import Bicycle
 
 _PARTS = ["Frame", "Wheelset", "Drivetrain", "Brake Set"]
 _LABOR_COST = 60.0
+_REWORK_COST = 40.0
 
 
 def assemble_city_cruiser(parts_db: PartsDB, ledger_db: LedgerDB) -> Bicycle:
@@ -23,3 +24,10 @@ def assemble_city_cruiser(parts_db: PartsDB, ledger_db: LedgerDB) -> Bicycle:
         parts_db.consume(name, 1)
     finance.post_cost(ledger_db, "Assembly", "labor", _LABOR_COST)
     return Bicycle("City Cruiser", list(_PARTS))
+
+
+def rework(ledger_db: LedgerDB, bicycle: Bicycle) -> None:
+    """Send ``bicycle`` back through the Portland Assembly Floor after it
+    fails Quality, re-posting the labor cost of the rework to the Ledger.
+    Rework corrects the existing build rather than consuming new parts."""
+    finance.post_cost(ledger_db, "Assembly", "labor", _REWORK_COST)
