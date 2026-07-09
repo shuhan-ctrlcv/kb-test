@@ -1,5 +1,7 @@
 """Scheduler — the production hub. Reads PartsDB and OrderDB; triggers
-Procurement when stock is low; releases work orders to Assembly."""
+Procurement when stock is low; releases work orders to Assembly (City
+Cruiser) or Trail Blazer assembly depending on the order's model, then
+calls quality.inspect on the result."""
 from __future__ import annotations
 
 import assembly

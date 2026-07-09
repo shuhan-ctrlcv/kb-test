@@ -2,7 +2,8 @@
 
 Consumes one Frame, one Wheelset, one Drivetrain, and one Brake Set from
 PartsDB, posts the labor cost of putting them together, and hands back the
-finished bicycle."""
+finished bicycle. Also provides rework(), which re-posts a labor cost when
+a unit is sent back from Quality after failing inspection."""
 from __future__ import annotations
 
 import finance

@@ -42,13 +42,13 @@ The diagram below traces one unit of work through the whole factory, from raw su
                +---------+---------+
                          v
           +-----------------------------+
-          |   Portland Assembly Floor   |
-          |          (Assembly)         |
-          +-----------------------------+
-                         |
-                         v
-                  +-------------+
-                  |   Quality   |
+          |   Portland Assembly Floor   |<----------+
+          |          (Assembly)         |           |
+          +-----------------------------+           |
+                         |                          |
+                         v                          | rework: failed QC returns to Assembly
+                  +-------------+                   |
+                  |   Quality   |-------------------+
                   +-------------+
                          |
                          v

@@ -11,6 +11,6 @@ Four stages post a cost to the Ledger, one cost kind each:
 | Quality | scrap cost |
 | Shipping | freight cost |
 
-In prose: Procurement posts a purchase cost each time it orders parts from a supplier. Assembly posts a labor cost each time it puts a City Cruiser together on the Portland Assembly Floor. Quality posts a scrap cost each time it runs QC inspection, whether the bicycle passes or fails. Shipping posts a freight cost each time it ships a finished bicycle out from the South Distribution Center. Inventory, by contrast, posts nothing to the Ledger — it only tracks stock levels in `PartsDB` and never spends money itself.
+In prose: Procurement posts a purchase cost each time it orders parts from a supplier. Assembly posts a labor cost each time it puts a City Cruiser or a Trail Blazer together on the Portland Assembly Floor, and posts another labor cost each time it reworks a unit that failed Quality. Quality posts a scrap cost each time it runs QC inspection, whether the bicycle passes or fails. Shipping posts a freight cost each time it ships a finished bicycle out from the South Distribution Center. Inventory, by contrast, posts nothing to the Ledger — it only tracks stock levels in `PartsDB` and never spends money itself.
 
 Because every one of those four postings lands in the same `LedgerDB`, the Ledger's running total is a complete record of everything the factory has spent across procurement, assembly, quality, and shipping for a given cycle.

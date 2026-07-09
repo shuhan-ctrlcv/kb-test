@@ -24,6 +24,8 @@ must_have_edges:
   - {from: Assembly, to: City Cruiser, sense: produces}
   - {from: Assembly, to: Trail Blazer, sense: produces}
   - {from: Suspension Fork, to: Trail Blazer, sense: used_in}
+  - {from: Frame, to: Trail Blazer, sense: used_in}
+  - {from: Wheelset, to: Trail Blazer, sense: used_in}
   - {from: Quality, to: Assembly, sense: returns_to}
 
 hub_expectations:
