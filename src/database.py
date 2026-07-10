@@ -1,8 +1,5 @@
-"""Fake data stores for PedalWorks: PartsDB, OrderDB, LedgerDB.
-
-These stand in for real databases so the code can reference named systems the
-knowledge graph should pick up. State is in-memory (module-level), just enough
-to run one factory cycle end to end."""
+"""In-memory fake data stores for PedalWorks: PartsDB, OrderDB, LedgerDB.
+State is module-level, just enough to run one factory cycle end to end."""
 from __future__ import annotations
 
 from models import LedgerEntry, Order

@@ -1,6 +1,6 @@
 # kb-test — PedalWorks
 
-`kb-test` is a hand-built "golden" test corpus for knowledge-base extraction work. It is not a real product: it is a fictional bicycle-assembly factory, **PedalWorks**, described twice — once in prose (`docs/`) and once in runnable Python (`src/`) — so that a downstream knowledge engine has a small, fully predictable graph to extract and be checked against.
+PedalWorks is a fictional bicycle-assembly company used for testing. It builds two bicycle models, described both in prose (`docs/`) and in runnable Python (`src/`).
 
 ## What PedalWorks does
 
@@ -69,4 +69,3 @@ The diagram below traces one unit of work through the whole factory, from raw su
 
 - `src/` — ten runnable Python modules (`models.py`, `database.py`, `finance.py`, `procurement.py`, `inventory.py`, `assembly.py`, `quality.py`, `shipping.py`, `trailblazer.py`, `scheduler.py`), one per stage (plus the Trail Blazer variant) and the shared data model and fake databases. Running `python scheduler.py` executes one full factory cycle end to end.
 - `docs/` — one markdown file per business stage (`procurement.md`, `inventory.md`, `assembly.md`, `quality.md`, `shipping.md`, `finance.md`), the `trailblazer.md` product variant, plus `data-model.md`, describing the same factory in prose.
-- Eval artifacts (`expected_structure.yaml`, `gold_qa.json`) used to check a later, automated extraction run against this corpus live in the data root, not in this repo. No extraction happens in this repo.
