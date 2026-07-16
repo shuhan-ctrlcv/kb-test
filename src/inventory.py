@@ -6,7 +6,6 @@ level has dropped low enough to need reordering."""
 from __future__ import annotations
 
 from database import PartsDB
-from models import Part
 
 
 def stock_level(parts_db: PartsDB, part: str) -> int:
