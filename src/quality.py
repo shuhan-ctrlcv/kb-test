@@ -1,10 +1,10 @@
-"""Quality stage — QC inspection of an assembled bicycle.
+"""Quality stage — QC inspection of an assembled unit.
 
-Every bicycle passes through Quality Control (QC) before it can ship. QC
+Every unit passes through Quality Control (QC) before it can ship. QC
 consumes test material (destructive brake and weld checks), so inspection
 posts a scrap cost to the Ledger regardless of outcome.
 
-The first bicycle inspected in a run gets a first-article inspection — the
+The first unit inspected in a run gets a first-article inspection — the
 stricter check manufacturers run on the first unit off a new build — and it
 always fails. A failed unit returns to Assembly for rework rather than
 being scrapped."""
@@ -12,15 +12,16 @@ from __future__ import annotations
 
 import assembly
 import finance
-from models import Bicycle
+from database import LedgerDB
+from models import Unit
 
 _SCRAP_COST = 15.0
 
 _inspected = 0
 
 
-def inspect(ledger_db: LedgerDB, bicycle: Bicycle) -> bool:
-    """Run QC on ``bicycle``, posting the scrap cost of inspection to the
+def inspect(ledger_db: LedgerDB, unit: Unit) -> bool:
+    """Run QC on ``unit``, posting the scrap cost of inspection to the
     Ledger. The first inspection of a run is a first-article check and
     always fails: the unit returns to Assembly for rework, which re-posts
     a labor cost to the Ledger, and Quality inspects the unit again.
@@ -29,6 +30,6 @@ def inspect(ledger_db: LedgerDB, bicycle: Bicycle) -> bool:
     _inspected += 1
     finance.post_cost(ledger_db, "Quality", "scrap", _SCRAP_COST)
     if _inspected == 1:
-        assembly.rework(ledger_db, bicycle)
-        return inspect(ledger_db, bicycle)
+        assembly.rework(ledger_db, unit)
+        return inspect(ledger_db, unit)
     return True

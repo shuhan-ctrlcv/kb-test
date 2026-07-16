@@ -6,8 +6,8 @@ from models import LedgerEntry, Order
 
 
 class PartsDB:
-    """Part stock levels, keyed by part name. Read/written by Inventory,
-    Procurement, and the Scheduler."""
+    """Part stock levels, keyed by part name. Read and written by Inventory,
+    the Planner, and Procurement."""
     def __init__(self) -> None:
         self._stock: dict[str, int] = {}
 
@@ -22,7 +22,8 @@ class PartsDB:
 
 
 class OrderDB:
-    """Customer orders. The Scheduler reads open orders; Shipping marks them shipped."""
+    """Customer orders. The Planner reads open orders; Shipping marks them
+    shipped once fulfilled."""
     def __init__(self, orders: list[Order] | None = None) -> None:
         self._orders = list(orders or [])
         self._shipped: set[str] = set()
